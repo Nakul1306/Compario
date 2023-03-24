@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Product Search</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>	
+      <h1>Product Search</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h2>Search for a Product</h2>
+      <div class="search">
+        <form>
+          <label for="searchInput">Enter a product name:</label>
+          <input type="text" id="searchInput" name="searchInput">
+          <button type="button" onclick="searchProducts()">Search</button>
+        </form>
+      </div>
+      <div id="productContainer" class="product-container"></div>
+    </main>
+    <footer>
+      <p>&copy; 2023 Product Search</p>
+    </footer>
+	<script>
+	function searchProducts() {
+  // Get the search query from the input field
+  const searchQuery = document.getElementById("searchInput").value;
+  
+  // Perform the search on both Flipkart and Amazon APIs
+  const flipkartProducts = searchFlipkart(searchQuery);
+  const amazonProducts = searchAmazon(searchQuery);
+  
+  // Merge the results from both APIs
+  const allProducts = [...flipkartProducts, ...amazonProducts];
+  
+  // Sort the products by price in ascending order
+  allProducts.sort((a, b) => a.price - b.price);
+  
+  // Display the products in the product container
+  const productContainer = document.getElementById("productContainer");
+  productContainer.innerHTML = "";
+  allProducts.forEach((product) => {
+    const productElement = createProductElement(product);
+    productContainer.appendChild(productElement);
+  });
+}
+
+function searchFlipkart(query) {
+  // TODO: Implement Flipkart API search and return the products
+}
+
+function searchAmazon(query) {
+  // TODO: Implement Amazon API search and return the products
+}
+
+function createProductElement(product) {
+  const productElement = document.createElement("div");
+  productElement.classList.add("product");
+  productElement.innerHTML = '<img src="${product.image}" alt="${product.title}"> <h3>${product.title}</h3> <p>${product.price}</p>';
+  return productElement;
+}
+</script>
+
+  </body>
+</html>
